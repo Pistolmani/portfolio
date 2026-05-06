@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { projects } from "../lib/data";
 
@@ -18,6 +18,12 @@ export function CommandPalette() {
   const [query, setQuery] = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const openPalette = useCallback(() => {
+    setQuery("");
+    setActiveIndex(0);
+    setOpen(true);
+  }, []);
 
   const items: Item[] = useMemo(() => {
     const goto = (hash: string) => () => {
@@ -37,8 +43,10 @@ export function CommandPalette() {
 
     const navItems: Item[] = [
       { id: "nav-top", group: "Navigate", label: "Top", hint: "/", perform: goto("") },
+      { id: "nav-proj", group: "Navigate", label: "Work", hint: "/#projects", perform: goto("#projects") },
+      { id: "nav-build", group: "Navigate", label: "What I build", hint: "/#capabilities", perform: goto("#capabilities") },
       { id: "nav-exp", group: "Navigate", label: "Experience", hint: "/#experience", perform: goto("#experience") },
-      { id: "nav-proj", group: "Navigate", label: "Projects", hint: "/#projects", perform: goto("#projects") },
+      { id: "nav-about", group: "Navigate", label: "About", hint: "/#about", perform: goto("#about") },
       { id: "nav-contact", group: "Navigate", label: "Contact", hint: "/#contact", perform: goto("#contact") },
     ];
 
@@ -81,33 +89,31 @@ export function CommandPalette() {
     const handler = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
-        setOpen((o) => !o);
+        if (open) {
+          setOpen(false);
+        } else {
+          openPalette();
+        }
       } else if (e.key === "Escape") {
         setOpen(false);
       }
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, []);
+  }, [open, openPalette]);
 
   useEffect(() => {
     const triggers = document.querySelectorAll<HTMLElement>("[data-cmdk-trigger]");
-    const onClick = () => setOpen(true);
+    const onClick = () => openPalette();
     triggers.forEach((t) => t.addEventListener("click", onClick));
     return () => triggers.forEach((t) => t.removeEventListener("click", onClick));
-  }, []);
+  }, [openPalette]);
 
   useEffect(() => {
-    if (open) {
-      setQuery("");
-      setActiveIndex(0);
-      setTimeout(() => inputRef.current?.focus(), 10);
-    }
+    if (!open) return;
+    const id = window.setTimeout(() => inputRef.current?.focus(), 10);
+    return () => window.clearTimeout(id);
   }, [open]);
-
-  useEffect(() => {
-    setActiveIndex(0);
-  }, [query]);
 
   if (!open) return null;
 
@@ -129,20 +135,23 @@ export function CommandPalette() {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-start justify-center bg-black/60 px-4 pt-24 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-start justify-center bg-black/75 px-4 pt-24 backdrop-blur-sm"
       onClick={() => setOpen(false)}
     >
       <div
-        className="w-full max-w-lg overflow-hidden rounded-xl border border-zinc-800 bg-zinc-950 shadow-2xl"
+        className="w-full max-w-xl overflow-hidden border border-white/10 bg-black shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <input
           ref={inputRef}
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => {
+            setQuery(e.target.value);
+            setActiveIndex(0);
+          }}
           onKeyDown={handleKey}
           placeholder="Type a command or search..."
-          className="w-full border-b border-zinc-900 bg-transparent px-4 py-3.5 text-sm text-zinc-100 placeholder:text-zinc-600 focus:outline-none"
+          className="w-full border-b border-white/10 bg-transparent px-4 py-3.5 text-sm text-zinc-100 placeholder:text-zinc-600 focus:outline-none"
         />
         <div className="max-h-80 overflow-y-auto py-2">
           {filtered.length === 0 && (
@@ -155,7 +164,7 @@ export function CommandPalette() {
             if (groupItems.length === 0) return null;
             return (
               <div key={group} className="px-2 py-1">
-                <div className="px-2 pt-1 pb-1 font-mono text-[10px] uppercase tracking-widest text-zinc-600">
+                <div className="px-2 pt-1 pb-1 font-mono text-[10px] uppercase text-zinc-600">
                   {group}
                 </div>
                 {groupItems.map((item) => {
@@ -166,10 +175,10 @@ export function CommandPalette() {
                       key={item.id}
                       onMouseEnter={() => setActiveIndex(filtered.indexOf(item))}
                       onClick={() => item.perform()}
-                      className={`flex w-full items-center justify-between rounded-md px-2 py-2 text-left text-sm transition-colors ${
+                      className={`flex w-full items-center justify-between px-2 py-2 text-left text-sm transition-colors ${
                         isActive
-                          ? "bg-indigo-500/15 text-white"
-                          : "text-zinc-300 hover:bg-zinc-900"
+                          ? "bg-cyan-300/10 text-white"
+                          : "text-zinc-300 hover:bg-white/5"
                       }`}
                     >
                       <span>{item.label}</span>
@@ -183,8 +192,8 @@ export function CommandPalette() {
             );
           })}
         </div>
-        <div className="flex items-center justify-between border-t border-zinc-900 px-4 py-2 font-mono text-[11px] text-zinc-600">
-          <span>↑↓ navigate · ↵ select</span>
+        <div className="flex items-center justify-between border-t border-white/10 px-4 py-2 font-mono text-[11px] text-zinc-600">
+          <span>arrows navigate / enter select</span>
           <span>esc to close</span>
         </div>
       </div>

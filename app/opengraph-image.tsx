@@ -15,7 +15,7 @@ export default function OG() {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: "80px",
-          background: "#09090b",
+          background: "#000000",
           color: "#fafafa",
           fontFamily: "system-ui, -apple-system, sans-serif",
         }}
@@ -25,7 +25,7 @@ export default function OG() {
             display: "flex",
             alignItems: "center",
             gap: "12px",
-            color: "#a1a1aa",
+              color: "#67e8f9",
             fontSize: 24,
             fontFamily: "monospace",
           }}
@@ -36,10 +36,10 @@ export default function OG() {
               width: 10,
               height: 10,
               borderRadius: 999,
-              background: "#34d399",
+              background: "#67e8f9",
             }}
           />
-          <span>otarp.dev</span>
+          <span>pirosmani.dev</span>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column" }}>
@@ -48,7 +48,7 @@ export default function OG() {
               display: "flex",
               fontSize: 80,
               fontWeight: 600,
-              letterSpacing: "-0.03em",
+              letterSpacing: 0,
               lineHeight: 1.05,
             }}
           >
@@ -63,7 +63,7 @@ export default function OG() {
               lineHeight: 1.3,
             }}
           >
-            .NET Backend Engineer · Banking & Fintech
+            .NET Backend Engineer / Banking & Fintech
           </div>
           <div
             style={{
@@ -74,7 +74,7 @@ export default function OG() {
               fontFamily: "monospace",
             }}
           >
-            Clean Architecture · CQRS · .NET 8 · ASP.NET Core
+            Clean Architecture / CQRS / .NET 8 / ASP.NET Core
           </div>
         </div>
 
@@ -87,7 +87,7 @@ export default function OG() {
             fontFamily: "monospace",
           }}
         >
-          <span>EU citizen · Tbilisi · GMT+4</span>
+          <span>EU citizen / Tbilisi / GMT+4</span>
           <span>Open to remote roles</span>
         </div>
       </div>

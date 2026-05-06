@@ -15,6 +15,9 @@ const jetbrains = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://pirosmani.dev"),
+  alternates: {
+    canonical: "/",
+  },
   title: {
     default: "Otar Pirosmanashvili — .NET Backend Engineer",
     template: "%s · Otar Pirosmanashvili",
@@ -26,10 +29,11 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
+    url: "https://pirosmani.dev",
     title: "Otar Pirosmanashvili — .NET Backend Engineer",
     description:
       "Backend engineer building production banking systems. Clean Architecture, CQRS, .NET 8, ASP.NET Core. Open to remote roles in the US & EU.",
-    siteName: "otarp.dev",
+    siteName: "pirosmani.dev",
   },
   twitter: {
     card: "summary_large_image",
@@ -51,7 +55,8 @@ export default function RootLayout({
       lang="en"
       className={`${geist.variable} ${jetbrains.variable} antialiased`}
     >
-      <body className="min-h-screen bg-zinc-950 text-zinc-100 selection:bg-indigo-500/40">
+      <body className="min-h-screen bg-black text-zinc-100">
+        <div className="noise-overlay" />
         {children}
         <CommandPalette />
       </body>
