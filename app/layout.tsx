@@ -14,7 +14,7 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://portfolio-58ujb1d8b-dressfield.vercel.app"),
+  metadataBase: new URL("https://pirosmani.dev"),
   title: {
     default: "Otar Pirosmanashvili — .NET Backend Engineer",
     template: "%s · Otar Pirosmanashvili",
