@@ -86,7 +86,7 @@ export default async function ProjectPage({
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="border border-cyan-300 bg-cyan-300 px-4 py-2 text-sm font-semibold text-black transition-colors hover:bg-white"
+                      className="btn-primary border border-cyan-300 bg-cyan-300 px-4 py-2 text-sm font-semibold text-black"
                     >
                       Live site
                     </a>
@@ -96,7 +96,7 @@ export default async function ProjectPage({
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="border border-white/15 px-4 py-2 text-sm font-semibold text-white transition-colors hover:border-white/60"
+                      className="btn-ghost border border-white/15 px-4 py-2 text-sm font-semibold text-white"
                     >
                       GitHub
                     </a>

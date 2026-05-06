@@ -47,6 +47,12 @@ export const experience: Experience[] = [
   },
 ];
 
+export type CodeSnippet = {
+  file: string;
+  lang: string;
+  code: string;
+};
+
 export type Project = {
   slug: string;
   title: string;
@@ -60,6 +66,7 @@ export type Project = {
   problem: string;
   approach: string[];
   highlights: string[];
+  codeSnippet: CodeSnippet;
 };
 
 export const projects: Project[] = [
@@ -99,6 +106,17 @@ export const projects: Project[] = [
       "Local-only inference (Ollama)",
       "LangGraph traced agent pipeline",
     ],
+    codeSnippet: {
+      file: "pipeline.py",
+      lang: "python",
+      code: `async def retrieve_evidence(state: BriefState):
+    semantic = await pgvector_search(state.query, k=10)
+    lexical  = await pg_fulltext(state.query, k=10)
+    fused    = reciprocal_rank_fusion(semantic, lexical)
+    state.evidence = fused[:5]
+    state.confidence = mean(d.score for d in fused[:5])
+    return state`,
+    },
   },
   {
     slug: "dressfield",
@@ -138,6 +156,21 @@ export const projects: Project[] = [
       "Server-side rendered storefront",
       "Self-managed Azure + Hostinger deployment",
     ],
+    codeSnippet: {
+      file: "OrderController.cs",
+      lang: "csharp",
+      code: `[HttpPost("custom")]
+public async Task<IActionResult> CreateCustomOrder(
+    [FromBody] CustomOrderDto dto)
+{
+    var order = Order.CreateCustom(
+        dto.ProductId, dto.ArtworkUrl,
+        dto.Placement, dto.Size);
+    await _repo.AddAsync(order);
+    var payment = await _ipay.InitiateAsync(order);
+    return Ok(new { order.Id, payment.RedirectUrl });
+}`,
+    },
   },
   {
     slug: "stitchprice",
@@ -174,6 +207,21 @@ export const projects: Project[] = [
       "Configurable business rules",
       "React + TypeScript frontend",
     ],
+    codeSnippet: {
+      file: "PricingEngine.cs",
+      lang: "csharp",
+      code: `public Quote Calculate(PricingRequest request)
+{
+    var baseCost = request.StitchCount / 1000m
+                 * _rules.PerThousandRate;
+    var colorFee = request.Colors * _rules.PerColorFee;
+    var discount = GetVolumeDiscount(request.Quantity);
+    var urgency  = request.IsRush
+        ? _rules.RushMultiplier : 1m;
+    return new Quote(
+        baseCost, colorFee, discount, urgency);
+}`,
+    },
   },
   {
     slug: "pasukhi",
@@ -207,5 +255,20 @@ export const projects: Project[] = [
       "Three-channel Meta integration (IG / FB / WA)",
       "Decoupled ingest → process → deliver pipeline",
     ],
+    codeSnippet: {
+      file: "WebhookConsumer.cs",
+      lang: "csharp",
+      code: `public async Task HandleAsync(InboundMessage msg)
+{
+    var tenant = await _tenants
+        .GetByPageIdAsync(msg.PageId);
+    var history = await _conversations
+        .GetRecentAsync(tenant.Id, msg.SenderId);
+    var reply = await _ai.GenerateReply(
+        tenant.Prompt, history, msg.Text);
+    await _meta.SendAsync(
+        msg.Channel, msg.SenderId, reply);
+}`,
+    },
   },
 ];

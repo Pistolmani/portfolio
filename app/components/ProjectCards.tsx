@@ -40,7 +40,7 @@ export function ProjectCards({ projects }: { projects: Project[] }) {
         <Link
           key={project.slug}
           href={`/projects/${project.slug}`}
-          className="project-row group grid min-h-[300px] gap-8 border-b border-white/10 py-8 transition-colors last:border-b-0 hover:bg-white/[0.025] md:grid-cols-[120px_minmax(0,1fr)_330px] md:py-10"
+          className="project-row group relative grid gap-6 border-b border-white/10 py-8 transition-all last:border-b-0 hover:bg-white/[0.025] md:min-h-[300px] md:gap-8 md:py-10 md:pl-0 md:hover:border-white/20 md:hover:pl-2 md:grid-cols-[120px_minmax(0,1fr)_330px]"
         >
           <div className="flex items-start justify-between gap-4 md:block">
             <span className="font-mono text-xs text-cyan-300">
@@ -83,21 +83,21 @@ export function ProjectCards({ projects }: { projects: Project[] }) {
             </div>
           </div>
 
-          <div className="project-plate relative min-h-[190px] overflow-hidden border border-white/10 bg-black/40">
-            <div className="absolute inset-5 border border-cyan-300/20" />
-            <div className="absolute left-5 top-5 font-mono text-xs uppercase text-cyan-300">
-              Case study
+          <div className="relative min-h-[140px] overflow-hidden border border-white/10 bg-black/60 transition-all duration-300 group-hover:border-cyan-300/25 group-hover:shadow-[0_0_24px_rgb(103_232_249/0.06)] md:min-h-[190px]">
+            <div className="flex items-center gap-2 border-b border-white/10 px-3 py-2">
+              <span className="h-2 w-2 rounded-full bg-zinc-700" />
+              <span className="h-2 w-2 rounded-full bg-zinc-700" />
+              <span className="h-2 w-2 rounded-full bg-zinc-700" />
+              <span className="ml-2 font-mono text-[10px] text-zinc-500">
+                {project.codeSnippet.file}
+              </span>
+              <span className="ml-auto font-mono text-[10px] text-zinc-600">
+                {project.codeSnippet.lang}
+              </span>
             </div>
-            <div className="absolute bottom-5 left-5 right-5">
-              <div className="font-mono text-xs uppercase text-zinc-500">
-                {project.status}
-              </div>
-              <div className="mt-2 text-3xl font-semibold leading-none text-white/85">
-                {project.title.slice(0, 2).toUpperCase()}
-              </div>
-            </div>
-            <div className="absolute right-5 top-5 h-16 w-16 border border-white/10" />
-            <div className="absolute right-10 top-10 h-16 w-16 border border-cyan-300/20 transition-transform duration-300 group-hover:translate-x-2 group-hover:translate-y-2" />
+            <pre className="overflow-hidden p-3 font-mono text-[11px] leading-[1.6] text-zinc-400 transition-colors group-hover:text-zinc-300">
+              <code>{project.codeSnippet.code}</code>
+            </pre>
           </div>
         </Link>
       ))}

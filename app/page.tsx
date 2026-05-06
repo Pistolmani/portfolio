@@ -80,7 +80,7 @@ export default function Home() {
           <div className="grid gap-4 md:grid-cols-3">
             {capabilities.map((item, index) => (
               <ScrollReveal key={item.title} y={28} delay={index * 0.05}>
-                <article className="min-h-[320px] border border-white/10 bg-black/35 p-6 md:p-7">
+                <article className="min-h-[220px] border border-white/10 bg-black/35 p-6 sm:min-h-[320px] md:p-7">
                   <div className="mb-16 font-mono text-xs text-cyan-300">
                     {String(index + 1).padStart(2, "0")}
                   </div>
@@ -139,13 +139,13 @@ export default function Home() {
             <ScrollReveal y={24}>
               <div>
                 <h2 className="text-5xl font-semibold leading-none text-white md:text-7xl">
-                  Backend engineer, product-minded builder.
+                  Backend engineer. Systems that scale, codebases that last.
                 </h2>
                 <div className="mt-10 space-y-5 text-sm leading-7 text-zinc-400">
                   <p>
                     I build features for enterprise banking systems where Clean
-                    Architecture, CQRS, and disciplined testing are daily tools,
-                    not slide-deck vocabulary.
+                    Architecture, CQRS, and disciplined testing are everyday
+                    practice, not just design principles.
                   </p>
                   <p>
                     Before that, I worked inside Bank of Georgia diagnosing
@@ -197,7 +197,7 @@ export default function Home() {
               </h2>
             </ScrollReveal>
             <ScrollReveal y={24} delay={0.08}>
-              <div className="grid gap-3 border-t border-white/10 pt-6 font-mono text-sm md:grid-cols-5">
+              <div className="grid grid-cols-2 gap-3 border-t border-white/10 pt-6 font-mono text-sm md:grid-cols-5">
                 <ContactLink label="email" value={links.email} href={`mailto:${links.email}`} />
                 <ContactLink label="phone" value={links.phone} href={`tel:${links.phone.replace(/\s/g, "")}`} />
                 <ContactLink label="linkedin" value="otar-pirosmanashvili" href={links.linkedin} external />

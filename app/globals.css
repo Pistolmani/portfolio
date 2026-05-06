@@ -99,6 +99,58 @@ html {
   background-size: 28px 28px;
 }
 
+.hero-surname {
+  font-size: 3rem;
+}
+
+@media (min-width: 640px) {
+  .hero-surname {
+    font-size: inherit;
+  }
+}
+
+.hero-name-first {
+  background: linear-gradient(
+    105deg,
+    #fff 0%,
+    #fff 55%,
+    rgb(103 232 249 / 0.75) 80%,
+    rgb(103 232 249 / 0.45) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* CTA primary button — fill sweep left→right */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  transform: translateX(-101%);
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+}
+.btn-primary:hover::after {
+  transform: translateX(0);
+}
+
+/* CTA ghost button — border glow on hover */
+.btn-ghost {
+  position: relative;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-ghost:hover {
+  border-color: rgb(255 255 255 / 0.5);
+  box-shadow: 0 0 12px rgb(103 232 249 / 0.08);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

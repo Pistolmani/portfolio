@@ -2,6 +2,9 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const links = {
   email: "pirosmanotar@gmail.com",
@@ -45,6 +48,17 @@ export function HeroSection() {
           },
           "-=0.35"
         );
+
+      gsap.to("[data-hero-bg-name]", {
+        y: 120,
+        ease: "none",
+        scrollTrigger: {
+          trigger: el,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
     }, el);
 
     return () => ctx.revert();
@@ -59,13 +73,14 @@ export function HeroSection() {
       <div className="hero-scanline" aria-hidden />
 
       <h1
-        className="pointer-events-none absolute -left-2 top-[19svh] z-0 select-none text-[6rem] font-semibold leading-[0.82] text-white/90 sm:text-[8rem] md:text-[10rem] lg:-left-5 lg:text-[13rem] xl:text-[15rem]"
+        data-hero-bg-name
+        className="pointer-events-none absolute inset-x-0 top-[19svh] z-0 select-none text-center font-semibold leading-[0.82] sm:inset-x-auto sm:-left-2 sm:text-left"
         aria-label="Otar Pirosmanashvili"
       >
-        <span data-hero-title className="block whitespace-nowrap">
+        <span data-hero-title className="hero-name-first block whitespace-nowrap text-[6rem] sm:text-[8rem] md:text-[10rem] lg:text-[13rem] xl:text-[15rem]">
           Otar
         </span>
-        <span data-hero-title className="block whitespace-nowrap text-white/45">
+        <span data-hero-title className="mt-3 block whitespace-nowrap text-[3rem] text-white/40 sm:mt-0 sm:text-[8rem] md:text-[10rem] lg:text-[13rem] xl:text-[15rem]">
           Pirosmanashvili
         </span>
       </h1>
@@ -77,7 +92,7 @@ export function HeroSection() {
         >
           <div className="flex items-center gap-3 text-cyan-300">
             <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-cyan-300" />
-            Open to remote roles
+            Available for remote roles — US &amp; EU
           </div>
           <div className="hidden text-zinc-500 sm:block">Tbilisi, Georgia / GMT+4</div>
         </div>
@@ -85,17 +100,17 @@ export function HeroSection() {
         <div className="grid w-full min-w-0 grid-cols-[minmax(0,1fr)] gap-10 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-end">
           <div data-hero-copy className="w-full min-w-0 max-w-[21.5rem] pt-[46svh] sm:max-w-3xl sm:pt-[48svh] lg:pt-0">
             <p className="w-full max-w-[21.5rem] text-2xl font-medium leading-tight text-white sm:max-w-2xl sm:text-3xl md:text-4xl">
-              .NET backend engineer building production banking systems,
-              pricing engines, and AI-grounded operations tools.
+              .NET backend engineer specialising in regulated financial
+              systems, Clean Architecture, and production-grade APIs.
             </p>
             <p className="mt-5 w-full max-w-[21.5rem] text-sm leading-7 text-zinc-400 sm:max-w-xl sm:text-base">
-              Clean Architecture, CQRS, MediatR, ASP.NET Core, and the calm
-              habit of making complicated systems inspectable.
+              Clean Architecture, CQRS, MediatR, and ASP.NET Core — with a
+              focus on maintainability and long-term system clarity.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a
                 href={`mailto:${links.email}`}
-                className="border border-cyan-300 bg-cyan-300 px-4 py-2 text-sm font-semibold text-black transition-colors hover:bg-white"
+                className="btn-primary border border-cyan-300 bg-cyan-300 px-4 py-2 text-sm font-semibold text-black"
               >
                 Email me
               </a>
@@ -103,7 +118,7 @@ export function HeroSection() {
                 href={links.resume}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="border border-white/15 px-4 py-2 text-sm font-semibold text-white transition-colors hover:border-white/60"
+                className="btn-ghost border border-white/15 px-4 py-2 text-sm font-semibold text-white"
               >
                 Resume.pdf
               </a>
@@ -111,7 +126,7 @@ export function HeroSection() {
                 href={links.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-1 py-2 text-sm text-zinc-400 transition-colors hover:text-white"
+                className="px-3 py-2.5 text-sm text-zinc-400 transition-colors hover:text-white"
               >
                 LinkedIn
               </a>
@@ -119,7 +134,7 @@ export function HeroSection() {
                 href={links.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-1 py-2 text-sm text-zinc-400 transition-colors hover:text-white"
+                className="px-3 py-2.5 text-sm text-zinc-400 transition-colors hover:text-white"
               >
                 GitHub
               </a>
