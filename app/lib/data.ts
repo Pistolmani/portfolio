@@ -228,7 +228,8 @@ public async Task<IActionResult> CreateCustomOrder(
     title: "Pasukhi",
     tagline: "Multi-tenant AI messaging automation across Instagram, Facebook & WhatsApp.",
     year: "2025",
-    status: "Working Prototype",
+    status: "Live",
+    liveUrl: "https://pasukhi.com",
     githubUrl: "https://github.com/Pistolmani/Pasukhi",
     stack: [
       "ASP.NET Core 8",
@@ -250,6 +251,7 @@ public async Task<IActionResult> CreateCustomOrder(
       "Decoupled ingestion, processing, and delivery layers to support future horizontal scaling.",
     ],
     highlights: [
+      "Live in production at pasukhi.com",
       "Multi-tenant data & bot isolation",
       "RabbitMQ-backed async ingestion",
       "Three-channel Meta integration (IG / FB / WA)",
